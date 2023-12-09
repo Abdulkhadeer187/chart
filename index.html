@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="chartApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Chart</title>
+    <!-- Include Angular.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body ng-controller="ChartController">
+    <div style="width: 80%; margin: auto;">
+        <canvas id="companyChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        // Angular module
+        var app = angular.module('chartApp', []);
+
+        // Angular controller
+        app.controller('ChartController', function ($scope) {
+            // Company data
+            $scope.companies = [
+                "Niagara BioEnergy",
+                "Brookhaven Waste Management Facility",
+                "Fort Ann Transfer Station LLC",
+                "Greece (T) Transfer Station",
+                "Jet Paper Stock Corp TS",
+                "Middletown Carting LLC (Auto Wreckers)",
+                "New Style Recycling Corp",
+                "Regal Recycling Inc",
+                "Thomas Novelli Contracting",
+                "Adirondack Portable Custom Crushing LLC"
+            ];
+
+            // 2020 data for each company
+            $scope.companyData2020 = [
+                305.61, 283.62, 281.39, 266.02, 261.66, 242.67, 233.09, 232.94, 232.49, 229.2
+            ];
+
+            // 2021 data for each company
+            $scope.companyData2021 = [
+                457.45, 429.51, 403.72, 371.46, 361.28, 332.94, 311.85, 310.92, 308.76, 302.77
+            ];
+
+            // Chart.js configuration
+            var ctx = document.getElementById('companyChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: $scope.companies,
+                    datasets: [{
+                        label: 'Material Cost (2020)',
+                        data: $scope.companyData2020,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Material Cost (2021)',
+                        data: $scope.companyData2021,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
